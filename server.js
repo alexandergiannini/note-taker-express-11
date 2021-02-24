@@ -1,6 +1,6 @@
 const express = require('express'); //requiring express up here
 
-
+const PORT = process.env.PORT || 3001;
 const app = express(); ///instantiating the server here
 
 const myNotes = require('./db/db'); ///maybe i dont need to format it like { myNotes }???
@@ -19,7 +19,7 @@ app.get('/api/db/:noteTitle', (req, res)=> {
     res.json(myNote) ///example URL: http://localhost:3001/api/db/2
 })
 
-app.listen(3001, () => {
-    console.log(`API server now on port 3001!`);
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}`);
   });
 //heroku link: https://limitless-coast-45003.herokuapp.com/ 
