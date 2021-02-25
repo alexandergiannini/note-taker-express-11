@@ -3,6 +3,8 @@ const express = require('express'); //requiring express up here
 const PORT = process.env.PORT || 3001;
 const app = express(); ///instantiating the server here
 
+const path = require('path')
+
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
@@ -26,9 +28,9 @@ function filterByQuery (query, notesArray) {
 
     return filteredResults 
 
-    ////http://localhost:3001/api/db?title=Erica
-    //http://localhost:3001/api/db?title=Test%20Title
-    ///http://localhost:3001/api/db?text=Test%20text
+    ////http://localhost:3001/api/notes?title=Erica
+    //http://localhost:3001/api/notes?title=Test%20Title
+    ///http://localhost:3001/api/notes?text=Test%20text
 }
 
 function createNewNote (body, notesArray) {
@@ -39,9 +41,21 @@ function createNewNote (body, notesArray) {
     return body
 }
 
+app.get('/', (req, res) => {
+    res.sendFile(
+        path.join(__dirname, './public/index.html') ///http://localhost:3001/
+    )
+})
 
-app.get('/api/db', (req, res) => {
-  //  res.json(myNotes); /// can see data at http://localhost:3001/api/db
+app.get('/notes', (req, res) => {
+    res.sendFile(
+        path.join(__dirname, './public/notes.html')
+    )
+})
+
+
+app.get('/api/notes', (req, res) => {
+  //  res.json(myNotes); /// can see data at http://localhost:3001/api/notes
     //res.send('testing')
     let results = myNotes
    
@@ -51,18 +65,18 @@ app.get('/api/db', (req, res) => {
     res.json(results)
 })
 
-app.get('/api/db/:noteTitle', (req, res)=> {
+app.get('/api/notes/:noteTitle', (req, res)=> {
     const id = req.params.noteTitle
     let myNote = myNotes[id]
-    res.json(myNote) ///example URL: http://localhost:3001/api/db/2
+    res.json(myNote) ///example URL: http://localhost:3001/api/notes/1
 })
 
-app.post('/api/db', (req, res) => {
+app.post('/api/notes', (req, res) => {
      // req.body is where our incoming content will be
   //console.log(req.body); //req.body property is where our incoming content will be.
   //req.body.id = myNotes.length.toString();
 
-  ///////
+  /////// i need to be able to store an ID here when saving a new note
 
   let newNote = req.body
   myNotes.push(newNote)
