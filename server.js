@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
-
+app.use(express.static('public')); //using this to access other files in public folder (namely index.js)
 
 
 const myNotes = require('./db/db'); ///maybe i dont need to format it like { myNotes }???
