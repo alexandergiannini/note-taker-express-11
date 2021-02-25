@@ -17,14 +17,26 @@ function filterByQuery (query, notesArray) {
     let filteredResults = notesArray
 
     if (query.title) {
-        filteredResults = filteredResults.filter(note => note.title === query.title)
+        filteredResults = filteredResults.filter(note => note.title === query.title) ///this takes account the title propery on db.json file
     }
 
     if (query.text) {
-        filteredResults = filteredResults.filter(note => note.text === query.text)
+        filteredResults = filteredResults.filter(note => note.text === query.text) //////this takes account the text propery on db.json file
     }
 
-    return filteredResults ////http://localhost:3001/api/db?title=Erica
+    return filteredResults 
+
+    ////http://localhost:3001/api/db?title=Erica
+    //http://localhost:3001/api/db?title=Test%20Title
+    ///http://localhost:3001/api/db?text=Test%20text
+}
+
+function createNewNote (body, notesArray) {
+    console.log(body)
+
+
+
+    return body
 }
 
 
@@ -47,8 +59,15 @@ app.get('/api/db/:noteTitle', (req, res)=> {
 
 app.post('/api/db', (req, res) => {
      // req.body is where our incoming content will be
-  console.log(req.body); //req.body property is where our incoming content will be.
-  res.json(req.body);
+  //console.log(req.body); //req.body property is where our incoming content will be.
+  //req.body.id = myNotes.length.toString();
+
+  let newNote = req.body
+  myNotes.push(newNote)
+  console.log(newNote)
+  res.json(myNotes)
+
+  //res.json(req.body);
 })
 
 
