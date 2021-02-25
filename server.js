@@ -62,6 +62,8 @@ app.post('/api/db', (req, res) => {
   //console.log(req.body); //req.body property is where our incoming content will be.
   //req.body.id = myNotes.length.toString();
 
+  ///////
+
   let newNote = req.body
   myNotes.push(newNote)
   console.log(newNote)
