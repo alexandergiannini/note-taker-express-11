@@ -38,9 +38,6 @@ function filterByQuery (query, notesArray) {
 //not used so far...
 function createNewNote (body, notesArray) {
     console.log(body);
-
-
-
     return body;
 }
 
