@@ -1,6 +1,7 @@
 const express = require('express'); //requiring express up here
 
 const PORT = process.env.PORT || 3001;
+
 const app = express(); ///instantiating the server here
 
 const path = require('path'); //requiring the path here
@@ -30,18 +31,7 @@ function filterByQuery (query, notesArray) {
         filteredResults = filteredResults.filter(note => note.text === query.text); //////this takes account the text propery on db.json file
     }
 
-    return filteredResults ;
-
-    ////http://localhost:3001/api/notes?title=Erica
-    //http://localhost:3001/api/notes?title=Test%20Title
-    ///http://localhost:3001/api/notes?text=Test%20text
-}
-
-
-//not used so far...
-function createNewNote (body, notesArray) {
-    console.log(body);
-    return body;
+    return filteredResults;
 }
 
 /// creating a get html path to the index.html page
@@ -61,8 +51,6 @@ app.get('/notes', (req, res) => {
 // creating an api route which reads the db.json file and returns all the notes saved as a JSON
 app.get('/api/notes', (req, res) => {
  
-    //let results = myNotes;
-
     let results;
 
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -78,8 +66,6 @@ app.get('/api/notes', (req, res) => {
             res.json(results);
         }
     })
-   
-    
 })
 
 // creating an api route which displays in ID(?) within the URL
@@ -90,12 +76,8 @@ app.get('/api/notes/:noteTitle', (req, res)=> {
 })
 
 
-/////// !!! i need to be able to store an ID here when saving a new note
 //POST api route which receives a new note to save and displays it on the db.json and returns the new note to the client
 app.post('/api/notes', (req, res) => {
-     // req.body is where our incoming content will be
-  //console.log(req.body); //req.body property is where our incoming content will be.
-  //req.body.id = myNotes.length.toString();
 
   let newNote = req.body;
   newNote.id = myNotes.length.toString();

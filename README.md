@@ -1,6 +1,6 @@
 # Note Taker Application
 
-# Hello there, my name is Alexander Giannini and this is my Note Taker Application! With this application, you can see existing notes, make a new note, edit existing notes, and delete notes. The backend of this application is powered by Express.js, which made all of this possible. Hope you enjoy!
+# Hello there, my name is Alexander Giannini and this is my Note Taker Application! With this application, you can see existing notes, make a new note, and edit existing notes. The backend of this application is powered by Express.js, which made all of this possible. Hope you enjoy!
 
 # Link to application: https://limitless-coast-45003.herokuapp.com/
 
