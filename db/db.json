@@ -1,15 +1,1 @@
-[
-    {
-    "title":"Test Title",
-    "text":"Test text"
-    },
-    {
-     "title": "Getting ready for bed",
-    "text": "This is my text"
-    },
-    {
-    "title": "Doing some chores",
-    "text": "My name is Erica"
-    }
-
-]
+[{"title":"Finished Tutoring","text":"We finished around 4:30","id":"0"},{"title":"Going to dinner","text":"Kaitlyn and I are going to tacos tu madre","id":"1"},{"title":"Going to work ","text":"working more on project","id":"2"}]

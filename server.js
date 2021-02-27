@@ -5,6 +5,8 @@ const app = express(); ///instantiating the server here
 
 const path = require('path'); //requiring the path here
 
+const fs = require('fs'); ///requiring FS here
+
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
@@ -13,7 +15,8 @@ app.use(express.json());
 app.use(express.static('public')); //using this to access other files in public folder
 
 
-const myNotes = require('./db/db'); ///maybe i dont need to format it like { myNotes }???
+let myNotes =  []/// this empty array runs through the clientside, and we use it to db.json
+//require('./db/db'); ///maybe i dont need to format it like { myNotes }???
 
 ///function that filters query search within the URL/notes page.
 function filterByQuery (query, notesArray) {
@@ -58,12 +61,25 @@ app.get('/notes', (req, res) => {
 // creating an api route which reads the db.json file and returns all the notes saved as a JSON
 app.get('/api/notes', (req, res) => {
  
-    let results = myNotes;
+    //let results = myNotes;
+
+    let results;
+
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+            throw err
+        } else {
+            myNotes = JSON.parse(data) || [] //data is a string, and coverts data into an object/string
+            results = myNotes
+
+            if (req.query) {
+                results = filterByQuery(req.query, results);
+            }
+            res.json(results);
+        }
+    })
    
-    if (req.query) {
-        results = filterByQuery(req.query, results);
-    }
-    res.json(results);
+    
 })
 
 // creating an api route which displays in ID(?) within the URL
@@ -82,8 +98,16 @@ app.post('/api/notes', (req, res) => {
   //req.body.id = myNotes.length.toString();
 
   let newNote = req.body;
+  newNote.id = myNotes.length.toString();
   myNotes.push(newNote);
-  console.log(newNote);
+
+  fs.writeFile('./db/db.json', JSON.stringify(myNotes), (err) => {
+    if (err) {
+        throw err
+    } else {
+       console.log('this works!') 
+    }
+  })
   res.json(myNotes);
 })
 
